@@ -1,12 +1,19 @@
 import dynamic from 'next/dynamic';
 import { Box, Flex, SimpleGrid, Text, theme } from "@chakra-ui/react";
 import { Header } from "../components/Header";
-import { SideBar } from "../components/SideBar";
+import { Sidebar } from "../components/Sidebar";
 import { ApexOptions } from 'apexcharts';
 
+//#####
+//Quando carrega a pagina, o Next ele carrega o HTMl
+//pelo servidor do backend, na camada intermediadora,
+//e nessa camda não existe window, porém esse módulo de
+//gráfico só funciona na camada do client(dentro do browser),
+//para resolver isso utilizamos o dynamic(o carregamento é dinâmico)
 const Chart = dynamic(()=> import('react-apexcharts'), {
-  ssr: false,
+  ssr: false, // o Chart só vai ser carregado pelo lado do Browser
 });
+//#####
 
 const options : ApexOptions = {
   chart: {
@@ -66,12 +73,12 @@ export default function Dashboard(){
       <Header />
 
       <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
-        <SideBar />
+        <Sidebar />
 
         <SimpleGrid flex="1" gap="4" minChildWidth="320px" align="flex-start">
          
           <Box
-            p="8"
+            p={["6","8"]}
             bg="gray.800"
             borderRadius={8}
             pb="4"
@@ -81,7 +88,7 @@ export default function Dashboard(){
           </Box>
 
           <Box
-            p="8"
+            p={["6","8"]}
             bg="gray.800"
             borderRadius={8}
             pb="4"
